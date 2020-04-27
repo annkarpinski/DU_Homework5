@@ -3,7 +3,8 @@ $(document).ready(function () {
   //Display current date
   var today = moment().format("dddd, MMMM Do");
   $("#currentDay").text(today);
-  var currentHour = moment().format("HH");
+  var currentHour = moment().format("hh");
+  console.log(currentHour);
 
   //create array of hours
   var hour = ["9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM"];
@@ -27,10 +28,10 @@ $(document).ready(function () {
     $(".container").append(newDiv);
   }
 
-  $(".saveBtn").on("click", function () {
-    var userInput = $(this).attr("description");
-    var value = $(this).val();
-    localStorage.setItem("description", value);
-    console.log(typeof userInput);
-  });
+  // $(".saveBtn").on("click", function () {
+  //   var userInput = $(this).attr("description");
+  //   // var value = $(this).val();
+  //   localStorage.setItem("description", value);
+  //   console.log(typeof userInput);
+  // });
 });
