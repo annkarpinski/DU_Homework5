@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  //Display current date
+  //Display current date and time
   var today = moment().format("dddd, MMMM Do");
   $("#currentDay").text(today);
   var currentHour = parseInt(moment().format("H"));
@@ -20,7 +20,7 @@ $(document).ready(function () {
     newP.addClass("col-sm-1 time-block hour");
     newP.text(hour[i]);
     newInput.addClass("col-sm-10 description");
-    newInput.attr("id", hour[i]);
+    newInput.attr("id", militaryTimes[i]);
     newBtn.addClass("col-sm-1 saveBtn fa fa-save");
     // Make past gray, make present red, and make future green
     // If hour is less than present, apply the "past" class
@@ -39,14 +39,19 @@ $(document).ready(function () {
   // Store the inputs in local storage when the save button is clicked
   $(".saveBtn").on("click", function () {
     var masterInputs = [];
-    for (var i = 9; i < 12; i++) {
-      var userInputAM = $("#" + i + "AM").val();
-      masterInputs.push(userInputAM);
+    for (var i = 9; i < 18; i++) {
+      var userInput = $("#" + i).val();
+      masterInputs.push(userInput);
     }
-    for (var i = 12; i < 18; i++) {
-      var userInputPM = $("#" + i + "PM").val();
-      masterInputs.push(userInputPM);
-    }
-    localStorage.setItem("savedTasks", masterInputs);
+    localStorage.setItem("savedTasks", JSON.stringify(masterInputs));
   });
+
+  // Call the stuff in local storage back when page is refreshed
+  var storedTasks = JSON.parse(localStorage.getItem("savedTasks"));
+  console.log(storedTasks);
+  // Display in the correct timeblocks
+  for (i = 0; i < storedTasks.length; i++) {
+    // Set the storedTasks into the input values
+    $("#" + (i + 9)).val(storedTasks[i]);
+  }
 });
